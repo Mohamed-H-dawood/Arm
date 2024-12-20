@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Video Showcase</title>
+    <style>
+        /* General styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: #fff;
+        }
+
+        header {
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            color: #fff;
+            text-align: right;
+            padding: 1.5rem 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            animation: slideDown 1s ease-out;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 3.5rem;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+            letter-spacing: 1px;
+        }
+
+        .header-links {
+            display: flex;
+            gap: 15px;
+        }
+
+        .header-links a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.2rem;
+            transition: color 0.3s ease;
+        }
+
+        .header-links a:hover {
+            color: #f39c12;
+        }
+
+        main {
+            max-width: 1000px;
+            margin: 50px auto;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.3);
+            padding: 30px;
+            backdrop-filter: blur(10px);
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        .video-container {
+            text-align: center;
+            margin: 20px 0;
+            position: relative;
+        }
+
+        .video-container video {
+            width: 100%;
+            max-width: 900px;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .video-container video:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+        }
+
+        .btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #ff416c, #ff4b2b);
+            color: #fff;
+            text-decoration: none;
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            transition: transform 0.3s, box-shadow 0.3s;
+            margin-top: 30px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 1rem;
+            color: #ddd;
+            background-color: rgba(0, 0, 0, 0.7);
+            animation: fadeIn 1.5s ease-in-out;
+            position: relative;
+        }
+
+        footer p {
+            margin: 0;
+            font-size: 1.1rem;
+            line-height: 1.5;
+        }
+
+        .designer-name {
+            font-weight: bold;
+            color: #ff9c00;
+            background: linear-gradient(135deg, #ff416c, #ff9c00);
+            padding: 3px 8px;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .designer-name:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+            color: #fff;
+        }
+
+        /* Animations */
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="header-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="book.html">Project Book</a></li>
+            <li><a href="video.html">Project Video</a></li>
+            <li><a href="code.html">Project code</a></li>
+            <li><a href="view.html">Work Team</a></li>
+        </div>
+        <h1>Project Video</h1>
+    </header>
+
+    <main>
+        <section class="video-container">
+            <!-- Video with poster image -->
+            <video controls poster="robot.jpg">
+                <source src="video.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </section>
+        <div class="text-center">
+            <a href="video.mp4" download class="btn">Download Video</a>
+        </div>
+    </main>
+</body>
+
+</html>

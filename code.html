@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Showcase</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #1f1c2c, #928dab);
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        header {
+            background: linear-gradient(90deg, #2c3e50, #4ca1af);
+            color: #fff;
+            text-align: left;
+            padding: 1rem 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            animation: fadeInDown 1s ease-in-out;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.8rem;
+            letter-spacing: 2px;
+        }
+
+        .header-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .header-links a {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: color 0.3s ease;
+        }
+
+        .header-links a:hover {
+            color: #f39c12;
+        }
+
+        main {
+            max-width: 900px;
+            margin: 40px auto;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            animation: zoomIn 1.5s ease-out;
+        }
+
+        .code-container {
+            padding: 20px;
+            background-color: #2c2c34;
+            color: #f1c40f;
+            font-family: 'Courier New', Courier, monospace;
+            border-radius: 8px;
+            overflow-x: auto;
+            line-height: 1.8;
+        }
+
+        .code-container pre {
+            margin: 0;
+            white-space: pre-wrap;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            font-size: 1rem;
+            color: #ddd;
+            background: linear-gradient(90deg, #4ca1af, #2c3e50);
+            box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        footer a {
+            color: #1abc9c;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        @keyframes fadeInDown {
+            0% {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes zoomIn {
+            0% {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Project Code</h1>
+        <div class="header-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="book.html">Project Book</a></li>
+          <li><a href="video.html">Project Video</a></li>
+          <li><a href="code.html">Project code</a></li>
+          <li><a href="view.html">Work Team</a></li>
+        </div>
+    </header>
+
+    <main>
+        <section>
+            <div class="code-container">
+                <pre>
+#include <Servo.h>
+
+// تعريف السيرفو
+Servo myServos[5];
+
+// تعريف مداخل أجهزة الفليكس سينسور
+const int flexPins[5] = {A0, A1, A2, A3, A4}; // مداخل الفليكس سينسور
+int flexValues[5];    // قراءة القيم من أجهزة الفليكس
+int angles[5];        // زوايا السيرفو
+
+void setup() 
+{
+  // توصيل السيرفو بالمخارج الرقمية
+  myServos[0].attach(9);
+  myServos[1].attach(10);
+  myServos[2].attach(11);
+  myServos[3].attach(12);
+  myServos[4].attach(13);
+
+  Serial.begin(9600); // إعداد المراقب التسلسلي
+}
+
+void loop()
+{
+  bool multipleSensors = false; // لمعرفة إذا تحرك أكثر من حساس
+
+  for (int i = 0; i < 5; i++) {
+    flexValues[i] = analogRead(flexPins[i]); // قراءة قيمة الفليكس
+    angles[i] = map(flexValues[i], 750, 900, 0, 180); // تحويل القيم إلى زاوية (0-180)
+    angles[i] = constrain(angles[i], 0, 180); // التأكد من بقاء الزاوية ضمن النطاق
+
+    // التحقق من تحرك أكثر من حساس
+    if (flexValues[i] > 750) { // قم بتعديل هذه القيمة حسب الحساسات لديك
+      multipleSensors = true;
+    }
+  }
+
+  if (multipleSensors) {
+    // إذا تحرك أكثر من حساس، قم بمزامنة الحركات
+    for (int i = 0; i < 5; i++) {
+      if (flexValues[i] > 750) { // قم بتحريك السيرفو فقط إذا كانت القيم كبيرة
+        myServos[i].write(angles[i]); // تحريك السيرفو
+      }
+    }
+  } else {
+    // تحريك السيرفو لكل حساس على حدة
+    for (int i = 0; i < 5; i++) {
+      myServos[i].write(angles[i]); // تحريك السيرفو
+    }
+  }
+
+  // عرض القيم على المراقب التسلسلي
+  for (int i = 0; i < 5; i++) {
+    Serial.print("Flex Sensor ");
+    Serial.print(i + 1);
+    Serial.print(" Value: ");
+    Serial.print(flexValues[i]);
+    Serial.print(" | Angle: ");
+    Serial.println(angles[i]);
+  }
+
+  delay(15); // تأخير قصير لتحسين الأداء
+}
+                </pre>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>Designed by Eng Mohamed Dawood</p>
+    </footer>
+</body>
+
+</html>
